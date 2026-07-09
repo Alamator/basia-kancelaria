@@ -339,29 +339,28 @@
 
     /* ===================== HERO ===================== */
     .hero {
-      min-height: 100vh;
-      max-height: 940px;
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      position: relative;
-    }
-    .hero-left {
       background: var(--ink);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 120px 72px 72px;
       position: relative;
       overflow: hidden;
     }
-    .hero-left::before {
+    .hero::before {
       content: '';
       position: absolute;
       inset: 0;
       background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M0 60L60 0M-5 5L5 -5M55 65L65 55' stroke='rgba(184,146,42,.05)' stroke-width='1'/%3E%3C/svg%3E");
       pointer-events: none;
     }
-    .hero-left > * { position: relative; }
+    .hero-wrap {
+      position: relative;
+      max-width: 1440px;
+      margin-inline: auto;
+      padding: 116px 72px 72px;
+      min-height: min(86vh, 820px);
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 64px;
+      align-items: center;
+    }
     .hero-eyebrow {
       font-size: .7rem;
       letter-spacing: .26em;
@@ -375,22 +374,20 @@
     .hero-eyebrow::before { content: ''; display: block; width: 34px; height: 1px; background: var(--gold); }
     .hero-title {
       font-family: var(--serif);
-      font-size: clamp(1.7rem, 2.6vw, 2.3rem);
-      font-weight: 300;
-      letter-spacing: .02em;
-      color: rgba(255,255,255,.85);
+      font-size: clamp(2.2rem, 3.4vw, 3.4rem);
+      font-weight: 400;
       line-height: 1.1;
-      margin-bottom: 8px;
+      color: var(--white);
+      margin-bottom: 12px;
     }
     .hero-name {
       font-family: var(--serif);
-      font-size: clamp(2.6rem, 5vw, 4.4rem);
+      font-size: clamp(1.35rem, 2vw, 1.9rem);
       font-weight: 400;
-      line-height: 1.02;
-      color: var(--white);
-      margin-bottom: 22px;
+      line-height: 1.25;
+      color: var(--gold-lt);
+      margin-bottom: 26px;
     }
-    .hero-name em { font-style: normal; color: var(--gold-lt); }
     .hero-tagline {
       font-family: var(--serif);
       font-size: clamp(1.15rem, 2vw, 1.5rem);
@@ -411,35 +408,55 @@
     }
     .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
 
-    .hero-right {
-      background: var(--cream);
+    /* framed portrait — gallery-style offset gold line (shared: hero + about) */
+    .framed {
       position: relative;
-      overflow: hidden;
+      display: inline-block;
+      margin: 0 14px 14px 0;
+    }
+    .framed::before {
+      content: '';
+      position: absolute;
+      inset: 14px -14px -14px 14px;
+      border: 1px solid var(--gold);
+      border-radius: 4px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .framed img { display: block; border-radius: 4px; }
+
+    .hero-figure {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-self: center;
+      min-width: 0;
     }
     .hero-photo {
-      width: 100%;
-      height: 100%;
+      aspect-ratio: 900 / 1262;
+      height: min(64vh, 620px);
+      width: auto;
+      max-width: 100%;
       object-fit: cover;
-      object-position: center 18%;
-      filter: grayscale(18%) contrast(1.02);
+      box-shadow: 0 22px 60px rgba(0,0,0,.45);
     }
-    .hero-photo-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(115deg, rgba(12,21,32,.28) 0%, rgba(12,21,32,0) 34%);
-      pointer-events: none;
+    .hero-figcap { text-align: center; margin-top: 26px; }
+    .hero-figcap .fc-name {
+      display: block;
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: rgba(255,255,255,.8);
     }
-    .hero-photo-badge {
-      position: absolute;
-      bottom: 28px; right: 28px;
-      background: rgba(12,21,32,.86);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(184,146,42,.3);
-      border-radius: 4px;
-      padding: 14px 20px;
+    .hero-figcap .fc-role {
+      display: block;
+      font-size: .6rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 5px;
     }
-    .hero-photo-badge .bn { font-family: var(--serif); font-size: .95rem; color: var(--white); margin-bottom: 2px; }
-    .hero-photo-badge .br { font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-lt); }
 
     /* ===================== CREDENTIALS BAR ===================== */
     .creds { background: var(--ink); border-top: 1px solid rgba(184,146,42,.16); }
@@ -487,16 +504,12 @@
     /* ===================== ABOUT ===================== */
     .about { padding: 110px 0; background: var(--paper); }
     .about-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 72px; align-items: center; }
-    .about-portrait { position: relative; }
-    .portrait-frame {
-      aspect-ratio: 3/4;
-      background: var(--ink);
-      overflow: hidden;
-      border-radius: 4px;
-      position: relative;
+    .about-portrait { position: relative; max-width: 380px; }
+    .about-portrait .framed img {
+      width: 100%;
+      height: auto;
+      box-shadow: 0 16px 44px rgba(12,21,32,.16);
     }
-    .portrait-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top center; filter: grayscale(15%); }
-    .portrait-stripe { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--gold); }
     .about-text { font-size: .96rem; font-weight: 300; color: var(--ink-soft); line-height: 1.9; margin-bottom: 16px; }
 
     /* ===================== HELP / POMOC ===================== */
@@ -766,9 +779,18 @@
 
     /* ===================== TABLET ===================== */
     @media (max-width: 1024px) {
-      .hero { grid-template-columns: 1fr; min-height: auto; max-height: none; }
-      .hero-right { min-height: 52vh; order: -1; }
-      .hero-left { padding: 100px 40px 64px; }
+      .hero-wrap {
+        grid-template-columns: 1fr;
+        gap: 44px;
+        padding: 96px 40px 56px;
+        min-height: auto;
+        justify-items: center;
+      }
+      .hero-figure { order: -1; }
+      .hero-photo { height: min(52vh, 460px); }
+      .framed::before { inset: 10px -10px -10px 10px; }
+      .framed { margin: 0 10px 10px 0; }
+      .hero-content { width: 100%; }
       .about-grid { grid-template-columns: 1fr; gap: 44px; }
       .about-portrait { max-width: 320px; margin: 0 auto; }
       .kons-boxes { grid-template-columns: 1fr; }
@@ -794,10 +816,9 @@
       .logo-sub { font-size: .5rem; letter-spacing: .18em; }
 
       .section-inner { padding: 0 20px; }
-      .hero-left { padding: 84px 20px 52px; }
+      .hero-wrap { padding: 84px 22px 48px; gap: 36px; }
       .hero-actions { flex-direction: column; }
       .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
-      .hero-photo { object-position: center 15%; }
 
       .cred { padding: 20px; }
       .about { padding: 64px 0; }
@@ -819,8 +840,9 @@
     }
 
     @media (max-width: 380px) {
-      .hero-name { font-size: 2.1rem; }
-      .hero-title { font-size: 1.4rem; }
+      .hero-title { font-size: 1.9rem; }
+      .hero-name { font-size: 1.25rem; }
+      .hero-photo { height: min(46vh, 380px); }
       .section-heading { font-size: 1.65rem; }
       .pomoc h2.pomoc-lead { font-size: 1.55rem; }
       .logo-name { font-size: .86rem; }
@@ -871,27 +893,30 @@
 
   <!-- ==================== HERO ==================== -->
   <section class="hero" id="start">
-    <div class="hero-left">
-      <p class="hero-eyebrow">Adwokat &middot; Mediator sądowy</p>
-      <h1 class="hero-title reveal">Kancelaria Adwokacka</h1>
-      <p class="hero-name reveal reveal-delay-1">Barbara<br /><em>Gradowska-Koprowska</em></p>
-      <p class="hero-tagline reveal reveal-delay-1">Ze strategią i pełnym zaangażowaniem</p>
-      <p class="hero-sentence reveal reveal-delay-2">Pomagam również po rozprawie - wspólnie ocenimy sytuację i możliwe dalsze kroki</p>
-      <div class="hero-actions reveal reveal-delay-3">
-        <a href="tel:+48668853858" class="btn-primary" aria-label="Zadzwoń: +48 668 853 858">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92v2z"/></svg>
-          Zadzwoń
-        </a>
-        <a href="#kontakt" class="btn-ghost">Napisz do mnie</a>
+    <div class="hero-wrap">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Kancelaria Adwokacka &middot; Toruń</p>
+        <h1 class="hero-title reveal">Adwokat i&nbsp;mediator w&nbsp;Toruniu</h1>
+        <p class="hero-name reveal reveal-delay-1">adw. Barbara Gradowska-Koprowska</p>
+        <p class="hero-tagline reveal reveal-delay-1">Ze strategią i pełnym zaangażowaniem</p>
+        <p class="hero-sentence reveal reveal-delay-2">Pomagam również po rozprawie - wspólnie ocenimy sytuację i możliwe dalsze kroki</p>
+        <div class="hero-actions reveal reveal-delay-3">
+          <a href="tel:+48668853858" class="btn-primary" aria-label="Zadzwoń: +48 668 853 858">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92v2z"/></svg>
+            Zadzwoń
+          </a>
+          <a href="#kontakt" class="btn-ghost">Napisz do mnie</a>
+        </div>
       </div>
-    </div>
-    <div class="hero-right">
-      <img src="assets/foto.jpg" alt="adw. Barbara Gradowska-Koprowska" class="hero-photo" width="900" height="1262" />
-      <div class="hero-photo-overlay"></div>
-      <div class="hero-photo-badge">
-        <div class="bn">Barbara Gradowska-Koprowska</div>
-        <div class="br">Adwokat &middot; Mediator sądowy</div>
-      </div>
+      <figure class="hero-figure reveal reveal-delay-2">
+        <div class="framed">
+          <img src="assets/foto.jpg" alt="adw. Barbara Gradowska-Koprowska" class="hero-photo" width="900" height="1262" />
+        </div>
+        <figcaption class="hero-figcap">
+          <span class="fc-name">adw. Barbara Gradowska-Koprowska</span>
+          <span class="fc-role">Adwokat &middot; Mediator sądowy</span>
+        </figcaption>
+      </figure>
     </div>
   </section>
 
@@ -918,9 +943,8 @@
     <div class="section-inner">
       <div class="about-grid">
         <div class="about-portrait reveal">
-          <div class="portrait-frame">
-            <img src="assets/foto.jpg" alt="adw. Barbara Gradowska-Koprowska w kancelarii" loading="lazy" width="900" height="1262" />
-            <div class="portrait-stripe"></div>
+          <div class="framed">
+            <img src="assets/foto-about.jpg" alt="adw. Barbara Gradowska-Koprowska w kancelarii" loading="lazy" width="700" height="700" />
           </div>
         </div>
         <div class="about-content">
