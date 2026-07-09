@@ -28,23 +28,15 @@ assets/
 3. (Opcjonalnie) sprawdzić poprawność danych: adres, NIP 879-122-92-16, REGON 871710282,
    numer wpisu TOR/Adw/109.
 
-## Jak podmienić klucz Web3Forms
+## Formularz (Web3Forms)
 
-Formularz używa darmowej usługi [web3forms.com](https://web3forms.com) — nic nie instalujesz,
-maile z formularza trafiają na skrzynkę kancelarii.
-
-1. Wejdź na https://web3forms.com i podaj adres `adwokat@gradowska-koprowska.pl`
-   (na ten adres będą przychodzić wiadomości z formularza).
-2. Skopiuj wygenerowany **Access Key** (ciąg znaków).
-3. W pliku `index.html` znajdź linię z komentarzem:
-   ```html
-   <!-- TODO: podmień na klucz z web3forms.com -->
-   <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
-   ```
-   i zamień `YOUR_ACCESS_KEY_HERE` na skopiowany klucz.
-4. Zapisz plik i wyślij testową wiadomość przez formularz, żeby potwierdzić działanie.
+Formularz używa darmowej usługi [web3forms.com](https://web3forms.com) (limit 250 zgłoszeń/mies.).
+Klucz dostępu jest już wpisany w `index.html` (pole `access_key`) i powiązany na stałe
+z adresem odbiorcy. Zmiana adresu odbiorcy = wygenerowanie nowego klucza na web3forms.com
+i podmiana wartości `access_key`.
 
 Temat maili ustawiony jest na „Nowe zapytanie ze strony kancelarii".
+Jeśli maile nie dochodzą — sprawdź folder SPAM na skrzynce kancelarii.
 
 ## Deploy (GitHub → Vercel → domena home.pl)
 
