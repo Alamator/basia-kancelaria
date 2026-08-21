@@ -1,19 +1,25 @@
 # Strona kancelarii — Barbara Gradowska-Koprowska
 
-Statyczna strona one-page kancelarii adwokackiej (adwokat + mediator sądowy, Toruń).
+Statyczna strona kancelarii adwokackiej (adwokat + stały mediator, Toruń).
 Czysty HTML/CSS/JS, bez frameworków. Jedyna zależność zewnętrzna to Google Fonts
 (Cormorant Garamond + Jost). Docelowa domena: **https://gradowska-koprowska.pl/**
+
+Wersja v2 (gałąź preview) pozycjonuje kancelarię na **podział majątku wspólnego
+i mediacje majątkowe**. Produkcyjny wygląd v1 zostaje na `main`.
 
 ## Struktura plików
 
 ```
-index.html                  ← strona główna (one-page, cały CSS/JS inline)
+index.html                  ← strona główna
+podzial-majatku.html        ← podział majątku wspólnego (zakres, tryby, orzecznictwo SN)
 polityka-prywatnosci.html   ← polityka prywatności (RODO) — DRAFT do akceptacji
+styles.css                  ← wspólny system wizualny (złoto / ink / szeryf)
 favicon.svg                 ← znak „§" w zieleni #2E6B3E
 robots.txt                  ← allow all + wskazanie sitemap
-sitemap.xml                 ← 2 adresy URL
+sitemap.xml                 ← 3 adresy URL
 assets/
-  foto.jpg      ← zdjęcie hero/portret (900 px, JPEG progressive)
+  foto.jpg      ← zdjęcie hero/portret (B&W; nie kolorować)
+  foto-about.jpg
   foto-og.jpg   ← obraz Open Graph 1200×630 (podgląd w social media)
   foto.png      ← oryginał (źródło; nie jest linkowany na stronie)
   adwokat_59716.pdf ← zaświadczenie wpisu na listę Izby Adwokackiej (link w stopce)
