@@ -1,10 +1,9 @@
 name: Publish old site to GitHub Pages
 
+# Manual only: Actions cannot enable Pages (403). After Pages is turned on
+# in repo settings (stara / root, or GitHub Actions source), run this job
+# from the Actions tab if a deploy is still needed.
 on:
-  push:
-    branches:
-      - stara
-      - cursor/github-pages-old-4c62
   workflow_dispatch:
 
 permissions:
